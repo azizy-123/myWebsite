@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Abdul Aziz A. Al Saudi - Personal Website</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c5364;
+            --secondary-color: #203a43;
+            --accent-color: #0f2027;
+            --text-color: #ffffff;
+        }
+
+        body, html {
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: var(--primary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        #header {
+            background: rgba(15, 32, 39, 0.8);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        #header.scrolled {
+            padding: 10px 0;
+            background: rgba(15, 32, 39, 0.95);
+        }
+
+        #header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #nav ul li {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        #nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        #nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fff;
+            transition: width 0.3s ease;
+        }
+
+        #nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .content {
+            padding: 100px 50px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .image img {
+            max-width: 250px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .image img:hover {
+            transform: scale(1.05);
+        }
+
+        #projects ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #projects li {
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #projects li:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .icon-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .icon-bar a {
+            text-decoration: none;
+            color: #fff;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            font-size: 1.5em;
+        }
+
+        .icon-bar a:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-5px);
+        }
+
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .najoun-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111;
+        }
+
+        .najoun {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fff;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .najoun:hover {
+            background-color: #2c5364;
+            opacity: 1;
+        }
+
+        #certificates .certificates-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .certificate {
+            width: 200px;
+            height: 150px;
+            perspective: 1000px;
+            flex-shrink: 0;
+        }
+
+        .certificate-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .certificate:hover .certificate-inner {
+            transform: rotateY(180deg);
+        }
+
+        .certificate-front, .certificate-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .certificate-front {
+            background-color: #f1f1f1;
+        }
+
+        .certificate-back {
+            background-color: #e1e1e1;
+            transform: rotateY(180deg);
+            padding: 10px;
+            font-size: 0.8em;
+            color: #333;
+        }
+
+        .certificate img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .see-all-btn {
+            display: inline-block;
+            margin: 20px auto 0;
+            padding: 8px 15px;
+            background-color: var(--secondary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-all-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            #header h1 {
+                font-size: 2em;
+            }
+
+            #nav ul li {
+                margin: 0 10px;
+            }
+
+            .content {
+                padding: 80px 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page-wrapper">
+        <header id="header">
+            <h1>Abdul Aziz A. Al Saudi</h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#about-me">About Me</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
+                    <li><a href="#resume">Resume</a></li>
+                    <li><a href="#connect-to-me">Connect</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="about-me" class="content">
+            <h2>About Me</h2>
+            <div class="image"><img data-src="images/IMG_20210620_013321_197.jpg" alt="Abdul Aziz A. Al Saudi" /></div>
+            <p>
+                Abdul Aziz Abdullah Al Saudi is an electronics engineer turned AI enthusiast with expertise in prompt engineering, dedicated to developing and refining AI applications. He has experience working as a Prompt Engineer and Technical Support at YAKUN, a PegaSystem Developer at INOVAR, and an Artificial Intelligence Data Annotator at Huawei. He holds a Bachelor of Engineering and Computer Science from Menofia University and has completed various AI-related courses from ALX Company. Abdul Aziz has worked on projects such as Thematic Learning, Ghaith, and the Waterway Debris Removal Network. He has received several certificates and awards, including an Honor Society Certificate and a NASA Apps Competition Certificate.
+            </p>
+        </section>
+
+        <section id="projects" class="content">
+            <h2>Projects</h2>
+            <ul>
+                <li>Thematic Learning</li>
+                <li>Ghaith</li>
+                <li>Waterway Debris Removal Network</li>
+            </ul>
+        </section>
+
+        <section id="certificates" class="content">
+            <h2>Certificates</h2>
+            <div class="certificates-container">
+                <div class="certificate">
+                    <div class="certificate-inner">
+                        <div class="certificate-front">
+                            <img data-src="images/AI Certificate.jpg" alt="AI Certificate">
+                        </div>
+                        <div class="certificate-back">
+                            <p>Artificial Intelligence for everyone certificate from Coursera and DeepLearning platforms</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="certificate">
+                    <div class="certificate-inner">
+                        <div class="certificate-front">
+                            <img data-src="images/AI Career Essentials.jpg" alt="AI Career Essentials">
+                        </div>
+                        <div class="certificate-back">
+                            <p>AiCE certificate from ALX, Leading of Tech in Africa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="certificate">
+                    <div class="certificate-inner">
+                        <div class="certificate-front">
+                            <img data-src="images/NASA Apps Competition Certificate.jpg" alt="NASA Apps Competition Certificate">
+                        </div>
+                        <div class="certificate-back">
+                            <p>Certificate for participation in NASA Apps Competition with Marine Debris project using AI</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="certificate">
+                    <div class="certificate-inner">
+                        <div class="certificate-front">
+                            <img data-src="images/Vanderbilt University Prompt Engineering.jpg" alt="Vanderbilt University Prompt Engineering">
+                        </div>
+                        <div class="certificate-back">
+                            <p>A certificate proving full experience in dealing with large language models and Prompt Engineering</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="https://drive.google.com/drive/folders/1qAhCQXV6p-s1QnD7eRtYBTDn8vTKVv3t?usp=sharing" target="_blank" class="see-all-btn">More Certificates</a>
+        </section>
+
+        <section id="resume" class="content">
+            <h2>Resume</h2>
+            <p>You can view and download my resumes from <a href="https://drive.google.com/drive/folders/12LuZ3P8zEpoP4AHgQevOqU9ae6Wc1uQP?usp=sharing" target="_blank">here</a>.</p>
+        </section>
+
+        <section id="connect-to-me" class="content">
+            <h2>Connect with Me</h2>
+            <div class="icon-bar">
+                <a href="https://www.linkedin.com/in/abdul-aziz-abdullah-al-saudi/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.facebook.com/mohammed.abdullh.969" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="http://wa.me//+201223653908" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:abdulazizabdullahalsaudi@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.reddit.com/user/YOUR_REDDIT" target="_blank"><i class="fab fa-reddit"></i></a>
+                <a href="https://github.com/azizy-123" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://discord.com/users/abdulaziz02861" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+        </section>
+    </div>
+
+    <div id="background">
+        <div class="najoun-container">
+            <div class="najoun" style="top: 100px; left: 200px;"></div>
+            <div class="najoun" style="top: 300px; left: 500px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+document.querySelectorAll('#nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Header shrink on scroll
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// Najoun (floating circles) animation
+const najounContainer = document.querySelector('.najoun-container');
+const najouns = document.querySelectorAll('.najoun');
+
+function animateNajouns() {
+    najouns.forEach(najoun => {
+        const x = Math.random() * (najounContainer.offsetWidth - najoun.offsetWidth);
+        const y = Math.random() * (najounContainer.offsetHeight - najoun.offsetHeight);
+        const duration = 5000 + Math.random() * 5000;
+
+        najoun.style.transition = `all ${duration}ms ease-in-out`;
+        najoun.style.left = `${x}px`;
+        najoun.style.top = `${y}px`;
+    });
+}
+
+animateNajouns();
+setInterval(animateNajouns, 10000);
+
+// Project list animation
+const projectItems = document.querySelectorAll('#projects li');
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const projectObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+projectItems.forEach(item => {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(20px)';
+    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    projectObserver.observe(item);
+});
+
+// Certificate carousel
+const certificatesContainer = document.querySelector('.certificates-container');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+certificatesContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - certificatesContainer.offsetLeft;
+    scrollLeft = certificatesContainer.scrollLeft;
+});
+
+certificatesContainer.addEventListener('mouseleave', () => {
+    isDown = false;
+});
+
+certificatesContainer.addEventListener('mouseup', () => {
+    isDown = false;
+});
+
+certificatesContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - certificatesContainer.offsetLeft;
+    const walk = (x - startX) * 2;
+    certificatesContainer.scrollLeft = scrollLeft - walk;
+});
+
+// Lazy loading for images
+const images = document.querySelectorAll('img');
+const imageOptions = {
+    threshold: 0,
+    rootMargin: '0px 0px 300px 0px'
+};
+
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('fade-in');
+            observer.unobserve(img);
+        }
+    });
+}, imageOptions);
+
+images.forEach(img => {
+    img.classList.add('lazy-load');
+    imageObserver.observe(img);
+});
+    </script>
+</body>
+</html>
