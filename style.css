@@ -1,0 +1,71 @@
+/* Resetting margins and paddings for a cleaner layout */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Styling for certificate images */
+.certificates-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.certificate {
+    width: 200px;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.certificate-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+}
+
+.certificate-front, .certificate-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.certificate-front {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.certificate-front img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.certificate-back {
+    background: #fff;
+    color: #000;
+    transform: rotateY(180deg);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.certificate-inner:hover .certificate-front {
+    transform: rotateY(180deg);
+}
+
+.certificate-inner:hover .certificate-back {
+    transform: rotateY(0deg);
+}
